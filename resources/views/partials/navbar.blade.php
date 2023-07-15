@@ -20,8 +20,8 @@
 
     <li class="nav-item dropdown pe-3">
       <a class="nav-link nav-profile d-flex align-items-center pe-md-3 pe-lg-3" href="#" data-bs-toggle="dropdown">
-        <span class="d-block pe-3">Teguh Pendirian</span>
-        <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle border">
+        <span class="d-block pe-3">Elfan H. Saputra</span>
+        <img src="/img/profile.jpg" alt="Profile" class="rounded-circle border">
       </a>
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li>

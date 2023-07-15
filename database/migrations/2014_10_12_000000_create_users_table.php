@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('hak_akses', ['Pimpinan', 'Staff', 'Admin']);
-            $table->text('foto_profil')->default('foto-profil.jpg')->nullable();
+            $table->enum('role', ['pimpinan', 'staff', 'admin']);
+            $table->text('foto_profil')->default('profile.jpg')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

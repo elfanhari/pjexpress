@@ -19,7 +19,7 @@ class CreatePerusahaansTable extends Migration
             $table->text('tentang_kami');
             $table->text('alamat');
             $table->string('kontak');
-            $table->text('logo')->default('logo-perusahaan.jpg')->nullable();
+            $table->text('logo')->default('logo.jpg')->nullable();
             $table->timestamps();
         });
     }
