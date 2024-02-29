@@ -49,4 +49,12 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    public function getRouteKeyName() { //routeModelBindings
+      return 'id';
+    }
+
+    public function supir() {
+      return $this->hasOne(Supir::class);
+    }
 }

@@ -14,4 +14,8 @@ class Pelanggan extends Model
     public function pengiriman() {
       return $this->hasMany(Pengiriman::class);
     }
+
+    public function getRouteKeyName() { //routeModelBindings
+      return 'id';
+    }
 }

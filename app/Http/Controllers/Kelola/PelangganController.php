@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Kelola;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LayananRequest;
+use App\Http\Requests\PelangganRequest;
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PelangganController extends Controller
 {
@@ -15,6 +18,9 @@ class PelangganController extends Controller
      */
     public function index()
     {
+      if (Auth::user()->role === 'supir') {
+        abort('403');
+      }
       $pelanggan = Pelanggan::get();
       return view('pages.kelola.pelanggan.index', compact('pelanggan'));
     }
@@ -26,7 +32,10 @@ class PelangganController extends Controller
      */
     public function create()
     {
-        //
+      if (Auth::user()->role === 'supir') {
+        abort('403');
+      }
+      return view('pages.kelola.pelanggan.create');
     }
 
     /**
@@ -35,9 +44,10 @@ class PelangganController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PelangganRequest $request)
     {
-        //
+      Pelanggan::create($request->all());
+      return redirect(route('pelanggan.index'))->withInfo('Data Pelanggan: <b>' . $request->name . ' </b> berhasil ditambahkan!');
     }
 
     /**
@@ -57,9 +67,12 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pelanggan $pelanggan)
     {
-        //
+      if (Auth::user()->role === 'supir') {
+        abort('403');
+      }
+      return view('pages.kelola.pelanggan.edit', compact('pelanggan'));
     }
 
     /**
@@ -69,9 +82,10 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PelangganRequest $request, Pelanggan $pelanggan)
     {
-        //
+      $pelanggan->update($request->all());
+      return redirect(route('pelanggan.index'))->withInfo('Data Pelanggan: <b>' . $pelanggan->name . ' </b>berhasil diperbarui!');
     }
 
     /**
@@ -80,8 +94,9 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pelanggan $pelanggan)
     {
-        //
+      $pelanggan->delete();
+      return redirect(route('pelanggan.index'))->withInfo('Data Pelanggan: <b>' . $pelanggan->name . ' </b>berhasil dihapus!');
     }
 }

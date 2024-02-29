@@ -5,6 +5,9 @@
         <span>Dashboard</span>
     </a>
   </li>
+
+  @if (Auth::user()->role != 'supir')
+
   <li class="nav-heading mt-3">Informasi</li>
   <li class="nav-item my-1">
     <a href="/kelola/tentangkami" class="nav-link {{ Request::is('kelola/tentangkami*') ? '' : 'collapsed' }}">
@@ -38,12 +41,17 @@
       <span>Data Kendaraan</span>
     </a>
   </li>
+
+  @can('pimpinan')
   <li class="nav-item my-1">
     <a href="/kelola/pengguna" class="nav-link {{ Request::is('kelola/pengguna*') ? '' : 'collapsed' }}">
       <i class="bi bi-person-fill-check"></i>
       <span>Data Pengguna</span>
     </a>
   </li>
+  @endcan
+
+  @endif
 
   <li class="nav-heading mt-3">DELIVERY</li>
   <li class="nav-item my-1">
@@ -53,11 +61,30 @@
     </a>
   </li>
 
+  @can('pimpinan')
   <li class="nav-heading mt-3">Laporan</li>
   <li class="nav-item my-1">
     <a href="/kelola/laporan" class="nav-link {{ Request::is('kelola/laporan*') ? '' : 'collapsed' }}">
       <i class="bi bi-file-earmark-text-fill"></i>
       <span>Cetak Laporan</span>
+    </a>
+  </li>
+  @endcan
+  @can('staff')
+  <li class="nav-heading mt-3">Laporan</li>
+  <li class="nav-item my-1">
+    <a href="/kelola/laporan" class="nav-link {{ Request::is('kelola/laporan*') ? '' : 'collapsed' }}">
+      <i class="bi bi-file-earmark-text-fill"></i>
+      <span>Cetak Laporan</span>
+    </a>
+  </li>
+  @endcan
+
+  <li class="nav-heading mt-3">ACCOUNT</li>
+  <li class="nav-item my-1">
+    <a href="/kelola/profil" class="nav-link {{ Request::is('kelola/profil*') ? '' : 'collapsed' }}">
+      <i class="bi bi-person-circle"></i>
+      <span>Profil</span>
     </a>
   </li>
 </ul>

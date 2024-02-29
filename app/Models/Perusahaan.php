@@ -11,5 +11,8 @@ class Perusahaan extends Model
 
     protected $guarded = ['id'];
 
+    public function getRouteKeyName() { //routeModelBindings
+      return 'id';
+    }
 
 }

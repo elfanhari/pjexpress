@@ -19,4 +19,8 @@ class Pengiriman extends Model
       return $this->belongsTo(Kendaraan::class);
     }
 
+    public function getRouteKeyName() { //routeModelBindings
+      return 'id';
+    }
+
 }

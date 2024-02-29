@@ -19,4 +19,8 @@ class Kendaraan extends Model
       return $this->hasMany(Pengiriman::class);
     }
 
+    public function getRouteKeyName() { //routeModelBindings
+      return 'id';
+    }
+
 }

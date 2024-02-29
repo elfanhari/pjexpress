@@ -15,6 +15,10 @@ class Supir extends Model
       return $this->hasMany(Kendaraan::class);
     }
 
+    public function user() {
+      return $this->belongsTo(User::class);
+    }
+
     public function getRouteKeyName() { //routeModelBindings
       return 'id';
     }

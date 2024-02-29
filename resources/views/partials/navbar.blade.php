@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center justify-content-between">
   <a href="/dashboard" class="logo ps-md-3 d-flex align-items-center">
-    <img src="/img/logo.png" alt="logosekolah">
-    <span class="d-none d-md-block">Admin</span>
+    {{-- <img src="/img/logo.png" alt="logosekolah"> --}}
+    <span class="d-none d-md-block text-capitalize">{{ Auth::user()->role }}</span>
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div>
@@ -9,7 +9,11 @@
   <ul class="d-flex align-items-center">
     <li class="nav-item me-3">
       <a class="nav-link">
+        @if ($perusahaan->isEmpty())
         <span class="rounded-pill py-2 px-3"><span class="d-none d-md-inline"><span class="fw-bold">PT PANG JAYA EXPRESS</span>
+        @else
+        <span class="rounded-pill py-2 px-3"><span class="d-none d-md-inline"><span class="fw-bold">{{ $perusahaan[0]->name }}</span>
+        @endif
       </a>
     </li>
     <li class="nav-item">
@@ -20,12 +24,12 @@
 
     <li class="nav-item dropdown pe-3">
       <a class="nav-link nav-profile d-flex align-items-center pe-md-3 pe-lg-3" href="#" data-bs-toggle="dropdown">
-        <span class="d-block pe-3">Elfan H. Saputra</span>
-        <img src="/img/profile.jpg" alt="Profile" class="rounded-circle border">
+        <span class="d-block pe-3">{{ Auth::user()->name }}</span>
+        <img src="/fotoprofil/{{ Auth::user()->foto_profil ?? 'profile.jpg' }}" alt="Profile" class="rounded-circle border">
       </a>
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+          <a class="dropdown-item d-flex align-items-center" href="{{ route('profil.index') }}">
             <i class="bi bi-person"></i>
             <span>My Profile</span>
           </a>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Kelola;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LayananRequest;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LayananController extends Controller
 {
@@ -15,6 +17,9 @@ class LayananController extends Controller
      */
     public function index()
     {
+      if (Auth::user()->role === 'supir') {
+        abort('403');
+      }
       $layanan = Layanan::get();
       return view('pages.kelola.layanan.index', compact('layanan'));
     }
@@ -26,7 +31,10 @@ class LayananController extends Controller
      */
     public function create()
     {
-        //
+      if (Auth::user()->role === 'supir') {
+        abort('403');
+      }
+      return view('pages.kelola.layanan.create');
     }
 
     /**
@@ -35,9 +43,10 @@ class LayananController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LayananRequest $request)
     {
-        //
+        Layanan::create($request->all());
+        return redirect(route('layanan.index'))->withInfo('Data Layanan berhasil ditambahkan!');
     }
 
     /**
@@ -57,9 +66,12 @@ class LayananController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Layanan $layanan)
     {
-        //
+        if (Auth::user()->role === 'supir') {
+          abort('403');
+        }
+        return view('pages.kelola.layanan.edit', compact('layanan'));
     }
 
     /**
@@ -69,9 +81,10 @@ class LayananController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LayananRequest $request, Layanan $layanan)
     {
-        //
+      $layanan->update($request->all());
+      return redirect(route('layanan.index'))->withInfo('Data Layanan berhasil diperbarui!');
     }
 
     /**
@@ -80,8 +93,9 @@ class LayananController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Layanan $layanan)
     {
-        //
+      $layanan->delete();
+      return redirect(route('layanan.index'))->withInfo('Data Layanan berhasil dihapus!');
     }
 }

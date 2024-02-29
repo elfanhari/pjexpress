@@ -1,11 +1,17 @@
+@php
+use App\Models\Perusahaan;
+
+$perusahaan = Perusahaan::get();
+
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>PT PANG JAYA EXPRESS</title>
+  <title>{{ $perusahaan[0]->name ?? 'PT PANG JAYA EXPRESS' }}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -18,8 +24,8 @@
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="/vendor/extensions/simple-datatables/style.css">
-  <link rel="stylesheet" href="/vendor/extensions/simple-datatables.css">
+  <link href="/vendor/extensions/simple-datatables/style.css" rel="stylesheet">
+  <link href="/vendor/extensions/simple-datatables.css" rel="stylesheet">
 
   <link href="/css/style.css" rel="stylesheet">
 
@@ -45,7 +51,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body py-0 mb-1">
-            Keluar dari Aplikasi Pembayaran SPP?
+            Keluar dari Aplikasi PJ Express?
           </div>
           <div class="modal-footer border-top-0 ">
             <form action="/logout" method="POST" class="w-100">
